@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.codingdojo.cynthia.modelos.Usuario;
+import com.codingdojo.cynthia.modelos.UsuarioOld;
 
 @Controller
 public class ControladorUsuarios {
@@ -39,11 +39,11 @@ public class ControladorUsuarios {
 		
 		model.addAttribute("countries", paises);
 		
-		Usuario usuario1 = new Usuario("Elena", "De Troya", 1);
-		Usuario usuario2 = new Usuario("Juana", "De Arco", 2);
-		Usuario usuario3 = new Usuario("Pablo", "Picasso", 3);
+		UsuarioOld usuario1 = new UsuarioOld("Elena", "De Troya", 1);
+		UsuarioOld usuario2 = new UsuarioOld("Juana", "De Arco", 2);
+		UsuarioOld usuario3 = new UsuarioOld("Pablo", "Picasso", 3);
 		
-		ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
+		ArrayList<UsuarioOld> listaUsuarios = new ArrayList<UsuarioOld>();
 		listaUsuarios.add(usuario1);
 		listaUsuarios.add(usuario2);
 		listaUsuarios.add(usuario3);
