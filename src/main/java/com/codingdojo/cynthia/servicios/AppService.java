@@ -30,7 +30,7 @@ public class AppService {
 	}
 	
 	//Borrar usuario en base a su ID
-	public void deleteUsuario(long id){
+	public void deleteUsuario(Long id){
 		repoUsuarios.deleteById(id);
 	}
 	

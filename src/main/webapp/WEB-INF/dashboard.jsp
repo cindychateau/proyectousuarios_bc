@@ -10,7 +10,30 @@
 </head>
 <body>
 	<div class="container">
-		<h1>¡Bienvenid@ <c:out value="${name}" /> <c:out value="${email}" /> !</h1>
+		<header class="d-flex justify-content-between align-items-center">
+			<h1>¡Bienvenid@ <c:out value="${name}" /> <c:out value="${email}" /> !</h1>
+			<a href="/new" class="btn btn-success">Agregar Usuario</a>
+		</header>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Nombre</th>
+					<th>Apellido</th>
+					<th>E-mail</th>
+					<th>Acciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach items="${usuarios}" var="usuario">
+					<tr>
+						<td><c:out value="${usuario.firstName}" /></td>
+						<td><c:out value="${usuario.lastName}" /></td>
+						<td><c:out value="${usuario.email}" /></td>
+						<td></td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
 	</div>
 </body>
 </html>
