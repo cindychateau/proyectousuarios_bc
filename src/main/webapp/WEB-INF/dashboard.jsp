@@ -29,7 +29,9 @@
 						<td><c:out value="${usuario.firstName}" /></td>
 						<td><c:out value="${usuario.lastName}" /></td>
 						<td><c:out value="${usuario.email}" /></td>
-						<td></td>
+						<td>
+							<a href="/edit/${usuario.id}" class="btn btn-warning">Editar</a>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>

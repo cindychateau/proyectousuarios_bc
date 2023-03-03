@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -127,6 +128,35 @@ public class ControladorUsuarios {
 			return "redirect:/dashboard";
 		}
 		
+	}
+	
+	@GetMapping("/edit/{id}")
+	public String edit(@PathVariable("id") Long id,
+					   Model model,
+					   @ModelAttribute("usuario") Usuario usuario) {
+		
+		//Estamos obteniendo el objecto de usuario al que pertenece ese ID
+		Usuario usuarioEdit = servicio.findUsuario(id);
+		
+		if(usuarioEdit == null) {
+			return "redirect:/dashboard";
+		}
+		
+		model.addAttribute("usuario", usuarioEdit);
+		
+		return "edit.jsp";
+		
+	}
+	
+	@PutMapping("/edit/{id}")
+	public String update(@Valid @ModelAttribute("usuario") Usuario usuario,
+						 BindingResult result) {
+		if(result.hasErrors()) {
+			return "edit.jsp";
+		} else {
+			servicio.saveUsuario(usuario);
+			return "redirect:/dashboard";
+		}
 	}
 	
 }
