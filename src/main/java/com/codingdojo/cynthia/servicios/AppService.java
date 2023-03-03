@@ -14,6 +14,16 @@ public class AppService {
 	@Autowired
 	private RepositorioUsuarios repoUsuarios;
 	
+	/*
+	 private final RepositorioUsuarios repoUsuarios
+	 
+	 public AppService(RepositorioUsuarios repoUsuarios) {
+	 	this.repoUsuarios = repoUsuarios;
+	 }
+	 
+	 */
+	
+	
 	//Me regresa una lista con todos los usuarios
 	public List<Usuario> findUsuarios() {
 		return repoUsuarios.findAll();

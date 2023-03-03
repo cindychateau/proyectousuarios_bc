@@ -31,6 +31,10 @@
 						<td><c:out value="${usuario.email}" /></td>
 						<td>
 							<a href="/edit/${usuario.id}" class="btn btn-warning">Editar</a>
+							<form action="/delete/${usuario.id}" method="post">
+								<input type="hidden" name="_method" value="DELETE" />
+								<input type="submit" value="Borrar" class="btn btn-danger" />
+							</form>
 						</td>
 					</tr>
 				</c:forEach>
