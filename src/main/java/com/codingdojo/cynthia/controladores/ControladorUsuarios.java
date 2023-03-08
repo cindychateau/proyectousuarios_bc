@@ -88,7 +88,9 @@ public class ControladorUsuarios {
 		//Creamos una variable para recibir la lista de usuarios
 		List<Usuario> usuarios = servicio.findUsuarios();
 		
-		model.addAttribute("usuarios", usuarios); //Enviamos atributo usuarios a dashboard
+		model.addAttribute("usuarios", usuarios); //Enviamos atributo usuarios a dashboar
+		
+		model.addAttribute("usuariosSinSalon", servicio.findUsuariosSinSalon());
 		
 		return "dashboard.jsp";
 	}
@@ -114,15 +116,21 @@ public class ControladorUsuarios {
 	}
 	
 	@GetMapping("/new")
-	public String newUser(@ModelAttribute("usuario") Usuario usuario) {
+	public String newUser(@ModelAttribute("usuario") Usuario usuario,
+						  Model model) {
+		
+		model.addAttribute("salones", servicio.findSalones());
+		
 		return "new.jsp";
 	}
 	
 	@PostMapping("/create")
 	public String create(@Valid @ModelAttribute("usuario") Usuario usuario,
-						 BindingResult result /*Encargado de regresar los mensajes de valid*/) {
+						 BindingResult result, /*Encargado de regresar los mensajes de valid*/
+						 Model model) {
 		
 		if(result.hasErrors()) {
+			model.addAttribute("salones", servicio.findSalones());
 			return "new.jsp";
 		} else {
 			servicio.saveUsuario(usuario);
@@ -144,6 +152,7 @@ public class ControladorUsuarios {
 		}
 		
 		model.addAttribute("usuario", usuarioEdit);
+		model.addAttribute("salones", servicio.findSalones());
 		
 		return "edit.jsp";
 		
@@ -151,8 +160,10 @@ public class ControladorUsuarios {
 	
 	@PutMapping("/edit/{id}")
 	public String update(@Valid @ModelAttribute("usuario") Usuario usuario,
-						 BindingResult result) {
+						 BindingResult result,
+						 Model model) {
 		if(result.hasErrors()) {
+			model.addAttribute("salones", servicio.findSalones());
 			return "edit.jsp";
 		} else {
 			servicio.saveUsuario(usuario);

@@ -16,6 +16,8 @@ public interface RepositorioUsuarios extends CrudRepository<Usuario, Long> {
 	
 	List<Usuario> findById(long id); //SELECT * FROM usuarios WHERE id = '<ID>'
 	
+	List<Usuario> findBySalonIdIsNull(); //SELECT * FROM usuarios WHERE classroom_id IS NULL
+	
 	//INSERT y UPDATE
 	//Usuario save(Usuario nuevoUsuario);
 	

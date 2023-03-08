@@ -20,11 +20,41 @@
 					<th>Nombre</th>
 					<th>Apellido</th>
 					<th>E-mail</th>
+					<th>Salón</th>
 					<th>Acciones</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach items="${usuarios}" var="usuario">
+					<tr>
+						<td><c:out value="${usuario.firstName}" /></td>
+						<td><c:out value="${usuario.lastName}" /></td>
+						<td><c:out value="${usuario.email}" /></td>
+						<td><c:out value="${usuario.salon.name}" /></td>
+						<td>
+							<a href="/edit/${usuario.id}" class="btn btn-warning">Editar</a>
+							<form action="/delete/${usuario.id}" method="post">
+								<input type="hidden" name="_method" value="DELETE" />
+								<input type="submit" value="Borrar" class="btn btn-danger" />
+							</form>
+						</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+		<hr>
+		<h2>Usuarios Sin Salón</h2>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Nombre</th>
+					<th>Apellido</th>
+					<th>E-mail</th>
+					<th>Acciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach items="${usuariosSinSalon}" var="usuario">
 					<tr>
 						<td><c:out value="${usuario.firstName}" /></td>
 						<td><c:out value="${usuario.lastName}" /></td>
