@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.codingdojo.cynthia.modelos.Hobby;
 import com.codingdojo.cynthia.modelos.Salon;
 import com.codingdojo.cynthia.modelos.Usuario;
+import com.codingdojo.cynthia.repositorios.RepositorioHobbies;
 import com.codingdojo.cynthia.repositorios.RepositorioSalones;
 import com.codingdojo.cynthia.repositorios.RepositorioUsuarios;
 
@@ -18,6 +20,9 @@ public class AppService {
 	
 	@Autowired
 	private RepositorioSalones repoSalones;
+	
+	@Autowired
+	private RepositorioHobbies repoHobbies;
 	
 	/*
 	 private final RepositorioUsuarios repoUsuarios
@@ -62,6 +67,43 @@ public class AppService {
 	//Me regrese un listado de Usuarios que NO tengan Salón
 	public List<Usuario> findUsuariosSinSalon() {
 		return repoUsuarios.findBySalonIdIsNull();
+	}
+	
+	//Me regresa el listado de todos los Hobbies
+	public List<Hobby> findHobbies() {
+		return repoHobbies.findAll();
+	}
+	
+	//Me regresa un hobby en base a su ID
+	public Hobby findHobby(Long id) {
+		return repoHobbies.findById(id).orElse(null);
+	}
+	
+	public void saveUsuarioHobby(Long user_id, Long hobby_id) {
+		//Obtengo el objeto del usuario al que queremos agregar el hobby
+		Usuario usuario = findUsuario(user_id);
+		//Obtengo el hobby
+		Hobby hobby = findHobby(hobby_id);
+		
+		//Lista de Hobbies
+		List<Hobby> listaHobbies = usuario.getHobbies();
+		listaHobbies.add(hobby);
+		
+		/*
+		 * List <Usuario> listaUsuarios = hobby.getUsuarios();
+		 * listaUsuarios.add(usuario);
+		 * repoHobbies.save(hobby);
+		 */
+		
+		repoUsuarios.save(usuario);
+	}
+	
+	//Me regrese el listado de hobbies que un usuario específico NO tiene
+	public List<Hobby> findHobbiesSinUsuario(Long user_id) {
+		//Obtenemos el objeto de usuario
+		Usuario usuario = findUsuario(user_id);
+		
+		return repoHobbies.findByUsuariosNotContains(usuario);
 	}
 	
 }
