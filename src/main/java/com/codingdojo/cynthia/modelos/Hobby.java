@@ -19,6 +19,10 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name="hobbies")
 public class Hobby {
@@ -37,6 +41,7 @@ public class Hobby {
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date updatedAt;
 	
+	@JsonBackReference(value="hobbies-json")
 	@ManyToMany(fetch= FetchType.LAZY)
 	@JoinTable(
 			name="users_has_hobbies",

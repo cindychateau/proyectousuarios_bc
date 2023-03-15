@@ -21,6 +21,10 @@ import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name="usuarios")
 public class Usuario {
@@ -49,13 +53,17 @@ public class Usuario {
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date createdAt;
 	
+	@JsonIgnore //Me ignora el regresar ese dato
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date updatedAt;
 	
+	@JsonBackReference(value="salon-json") //Objeto de Usuario NO va a visualizar el salón
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="classroom_id") //Llave foránea
 	private Salon salon;
 	
+	@JsonManagedReference(value="hobbies-json") //Objeto de Usuario SI se vea la lista de hobbies
+	@JsonIgnore //Para no mandarlo a través de JSON al ser guardado
 	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(
 			name="users_has_hobbies",

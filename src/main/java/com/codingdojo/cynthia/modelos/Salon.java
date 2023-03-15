@@ -18,6 +18,10 @@ import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name="classrooms")
 public class Salon {
@@ -37,6 +41,7 @@ public class Salon {
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date updatedAt;
 	
+	@JsonManagedReference(value="salon-json")
 	@OneToMany(mappedBy="salon", fetch = FetchType.LAZY)
 	private List <Usuario> usuarios;
 

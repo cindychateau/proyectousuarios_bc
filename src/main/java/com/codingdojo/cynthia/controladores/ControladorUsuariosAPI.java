@@ -3,11 +3,14 @@ package com.codingdojo.cynthia.controladores;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -57,6 +60,24 @@ public class ControladorUsuariosAPI {
 		
 		Usuario usuarioActualizado = new Usuario(id, firstName, lastName, email, password);
 		return servicio.saveUsuario(usuarioActualizado);
+		
+	}
+	
+	@GetMapping("/usuarios2")
+	public ResponseEntity<List<Usuario>> muestraUsuarios2() {
+		List <Usuario> usuarios = servicio.findUsuarios();
+		return new ResponseEntity<>(usuarios, HttpStatus.ACCEPTED);
+	}
+	
+	@PostMapping("/usuarios/nuevo")
+	public ResponseEntity<Usuario> nuevoUsuario(@RequestBody Usuario nuevoUsuario){
+		
+		System.out.println(nuevoUsuario.getFirstName());
+		System.out.println(nuevoUsuario.getLastName());
+		
+		servicio.saveUsuario(nuevoUsuario);
+		
+		return new ResponseEntity<>(nuevoUsuario, HttpStatus.CREATED);
 		
 	}
 	
